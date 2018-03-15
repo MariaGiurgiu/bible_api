@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index1</title>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="content"></div>
+    <button type="button" onclick="myFunction()">Get Verse</button>
+    <script>
+        function myFunction() {
+            axios
+                .get('http://labs.bible.org/api/?passage=random&type=json')
+                .then(function(response){
+                    let paragraph = document.createElement("p");
+                    let node = document.createTextNode(JSON.stringify(response.data));
+                    paragraph.appendChild(node);
+                    let element = document.getElementById("content");
+                    element.appendChild(paragraph);
+
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+    </script>
+</body>
+</html>
