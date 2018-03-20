@@ -53,6 +53,7 @@ class Base extends React.Component {
         return[
             <Button addVerse={this.addVerse}/>,
             <Verse verse={this.state.verse}/>,
+            <br/>,
             <VerseList verses={this.state.verses}/>
         ]
     }
