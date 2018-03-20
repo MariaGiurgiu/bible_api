@@ -31,8 +31,8 @@ class Base extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            verse: "1234",
-            verses: " "
+            verse: "1234", // TODO While waiting to retrieve a verse, add a "Loading..." text or, even better, a spinner
+            verses: " " // TODO Isn't this supposed to be an array?
         };
 
         this.addVerse = this.addVerse.bind(this)
