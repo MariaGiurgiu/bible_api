@@ -1,2 +1,5 @@
 node_modules/
 .idea/
+
+static/bundle.js
+static/transpiled.js
