@@ -22,7 +22,7 @@ function Verse( props ) {
 function VerseList(props) {
     return(
         <div>
-            Aici vine lista de versete.
+            {props.verses}
         </div>
     )
 }
@@ -31,7 +31,8 @@ class Base extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            verse: "1234"
+            verse: "1234",
+            verses: " "
         };
 
         this.addVerse = this.addVerse.bind(this)
@@ -41,8 +42,7 @@ class Base extends React.Component {
         let self = this;
         axios.get('http://localhost:3000/data')
             .then(function (resp) {
-                self.setState({verse: resp.data})
-                // TODO push this verse to the list
+                self.setState({verse: resp.data, verses: self.state.verses.concat(resp.data)});
             }).catch(function (err) {
                 console.log(err)
             }
@@ -53,7 +53,7 @@ class Base extends React.Component {
         return[
             <Button addVerse={this.addVerse}/>,
             <Verse verse={this.state.verse}/>,
-            <VerseList/>
+            <VerseList verses={this.state.verses}/>
         ]
     }
 }
