@@ -21,8 +21,8 @@ function Verse( props ) {
 
 function VerseList(props) {
     return(
-        <div>
-            {props.verses}
+        <div>            
+            {props.verses} // TODO implement condition to display a spinner instead if this.state.verse is empty
         </div>
     )
 }
@@ -32,8 +32,8 @@ class Base extends React.Component {
         super(props);
         this.state = {
             loading : true,
-            verse: "Loading...", // TODO While waiting to retrieve a verse, add a "Loading..." text or, even better, a spinner
-            verses: [] // TODO Isn't this supposed to be an array?
+            verse: "Loading...", // TODO make it an empty string by default
+            verses: []
         };
         this.addVerse = this.addVerse.bind(this)
     }
