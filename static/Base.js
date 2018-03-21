@@ -1,24 +1,29 @@
 const React = require("react");
 const ReactDOM = require("react-dom");
-
 function Button( props ) {
     return(
         <button className = "pressMe"
                 onClick = {
                     () => props.addVerse() }>
-            Click Me!
+            Get Verse
         </button>
     )
 }
 
-function Verse( props ) {
-    return(
-        <div>
-            {props.verse}
-        </div>
-    )
-}
+function Verse(props) {
+    if(props.verse.length !== 0){
+        return(
+            <div>
+                {props.verse}
+            </div>
+        )
+    } else {
+        return(
+            <img src="img.gif" />
+        )
+    }
 
+}
 function VerseList(props) {
     return(
         <div>
@@ -31,8 +36,7 @@ class Base extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading : true,
-            verse: "Loading...",
+            verse: "",
             verses: []
         };
         this.addVerse = this.addVerse.bind(this)
