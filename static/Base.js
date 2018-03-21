@@ -31,10 +31,10 @@ class Base extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            verse: "1234", // TODO While waiting to retrieve a verse, add a "Loading..." text or, even better, a spinner
-            verses: " " // TODO Isn't this supposed to be an array?
+            loading : true,
+            verse: "Loading...", // TODO While waiting to retrieve a verse, add a "Loading..." text or, even better, a spinner
+            verses: [] // TODO Isn't this supposed to be an array?
         };
-
         this.addVerse = this.addVerse.bind(this)
     }
 
@@ -42,7 +42,9 @@ class Base extends React.Component {
         let self = this;
         axios.get('http://localhost:3000/data')
             .then(function (resp) {
-                self.setState({verse: resp.data, verses: self.state.verses.concat(resp.data)});
+                let versesArr = self.state.verses;
+                versesArr.push(resp.data);
+                self.setState({verse: resp.data, verses: versesArr});
             }).catch(function (err) {
                 console.log(err)
             }
