@@ -10,6 +10,16 @@ function Button( props ) {
     )
 }
 
+function DeleteButton(props){
+    return(
+        <button className = "pressMe"
+                onClick = {
+                    () => props.addVerse() }>
+            Delete
+        </button>
+    )
+}
+
 function Verse(props) {
     if(props.verse.length !== 0){
         return(
