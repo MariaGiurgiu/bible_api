@@ -2,11 +2,11 @@ const React = require("react");
 const ReactDOM = require("react-dom");
 function Button( props ) {
     return(
-        <button className = "pressMe"
+        <a className="btn btn-primary btn-lg" href="#" role="button"
                 onClick = {
                     () => props.addVerse() }>
-            Get Verse
-        </button>
+            Get another
+        </a>
     )
 }
 
@@ -14,7 +14,7 @@ function DeleteButton(props){
     return(
         <button className = "pressMe"
                 onClick = {
-                    () => props.addVerse() }>
+                    () => props.deleteVerse() }>
             Delete
         </button>
     )
@@ -23,9 +23,12 @@ function DeleteButton(props){
 function Verse(props) {
     if(props.verse.length !== 0){
         return(
-            <p>
-                {props.verse}
-            </p>
+            <div>
+                <span>
+                    {props.verse} {props.date}
+                </span>
+
+            </div>
         )
     } else {
         return(
@@ -39,7 +42,16 @@ function Verse(props) {
 function VerseList(props) {
     return(
         <div>
-            {props.verses}
+            <h2>Previous verses</h2>
+            <ul className="list-group">
+                {
+                    props.verses.forEach((item, index) => {
+                    return <li className="list-group-item" key={index}>
+                            {item} {props.verses[index]}
+                            </li>
+                    })
+                }
+            </ul>
         </div>
     )
 }
@@ -47,9 +59,12 @@ function VerseList(props) {
 class Base extends React.Component {
     constructor(props) {
         super(props);
+        let map = new Map();
+
         this.state = {
             verse: "",
-            verses: []
+            verses: map,
+            date: ""
         };
         this.addVerse = this.addVerse.bind(this)
     }
@@ -58,9 +73,13 @@ class Base extends React.Component {
         let self = this;
         axios.get('http://localhost:3000/data')
             .then(function (resp) {
+                let today = new Date().toString().slice(0, 25);
+
                 let versesArr = self.state.verses;
-                versesArr.push(resp.data);
-                self.setState({verse: resp.data, verses: versesArr});
+
+                versesArr.set(resp.data, today);
+                console.log(versesArr);
+                self.setState({verse: resp.data, verses: versesArr, date: today});
             }).catch(function (err) {
                 console.log(err)
             }
@@ -68,12 +87,27 @@ class Base extends React.Component {
     }
 
     render() {
-        return[
-            <Button addVerse={this.addVerse}/>,
-            <Verse verse={this.state.verse}/>,
-            <br/>,
-            <VerseList verses={this.state.verses}/>
-        ]
+        return(
+            <div>
+                <div>
+                    <div className="container">
+                    <h1 className="display-4">Random verse</h1>
+                    <p className="lead">
+                        <Verse verse={this.state.verse} date={this.state.date}/>
+                    </p>
+                    <hr className="my-4"/>
+                    <p className="lead">
+                        <Button addVerse={this.addVerse}/>
+                    </p>
+                    </div>
+                </div>
+                <div className="container">
+                    <div className="row mb-5">
+                        <VerseList verses={this.state.verses}/>
+                    </div>
+                </div>
+            </div>
+        )
     }
 }
 
