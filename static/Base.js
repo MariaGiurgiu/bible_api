@@ -13,13 +13,15 @@ function Button( props ) {
 function Verse(props) {
     if(props.verse.length !== 0){
         return(
-            <div>
+            <p>
                 {props.verse}
-            </div>
+            </p>
         )
     } else {
         return(
-            <img src="img.gif" />
+            <div>
+                <img src="spinner.gif" style={{width:80, height:80}}/>
+            </div>
         )
     }
 
