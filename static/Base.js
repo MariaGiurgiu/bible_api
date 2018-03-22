@@ -56,12 +56,14 @@ class Base extends React.Component {
         let self = this;
         axios.get('http://localhost:3000/data')
             .then(function (resp) {
-                let today = new Date().toString().slice(0, 25);
                 let versesArr = self.state.verses;
+                versesArr.push(resp.data);
+
+                let today = new Date().toString().slice(0, 25);
                 let dateArr = self.state.date;
                 dateArr.pop();
                 dateArr.push(today);
-                versesArr.push(resp.data);
+
                 self.setState({verse: resp.data, verses: versesArr, date: dateArr});
             }).catch(function (err) {
                 console.log(err)
