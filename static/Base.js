@@ -31,9 +31,11 @@ function VerseList(props) {
             <ul className="list-group">
                 {
                     props.verses.map((item, index) => {
-                        return <li className="list-group-item" key={index}>{item}</li>
+                        return <li className="list-group-item" key={index}>{item}{props.date}
+                        </li>
                     })
                 }
+
             </ul>
         </div>
     )
@@ -44,7 +46,8 @@ class Base extends React.Component {
         super(props);
         this.state = {
             verse: "",
-            verses: []
+            verses: [],
+            date: []
         };
         this.addVerse = this.addVerse.bind(this)
     }
@@ -53,9 +56,13 @@ class Base extends React.Component {
         let self = this;
         axios.get('http://localhost:3000/data')
             .then(function (resp) {
+                let today = new Date().toString().slice(0, 25);
                 let versesArr = self.state.verses;
+                let dateArr = self.state.date;
+                dateArr.pop();
+                dateArr.push(today);
                 versesArr.push(resp.data);
-                self.setState({verse: resp.data, verses: versesArr});
+                self.setState({verse: resp.data, verses: versesArr, date: dateArr});
             }).catch(function (err) {
                 console.log(err)
             }
@@ -69,7 +76,7 @@ class Base extends React.Component {
                     <div className="container">
                     <h1 className="display-4">Random verse</h1>
                     <p className="lead">
-                        <Verse verse={this.state.verse}/>
+                        <Verse verse={this.state.verse} />
                     </p>
                     <hr className="my-4"/>
                     <p className="lead">
@@ -79,7 +86,7 @@ class Base extends React.Component {
                 </div>
                 <div className="container">
                     <div className="row mb-5">
-                        <VerseList verses={this.state.verses}/>
+                        <VerseList verses={this.state.verses} date={this.state.date}/>
                     </div>
                 </div>
             </div>
