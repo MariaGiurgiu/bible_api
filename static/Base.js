@@ -10,6 +10,26 @@ function Button( props ) {
     )
 }
 
+function DeleteButton( props ) {
+    return(
+        <button className = "btn btn-primary btn-sm"
+                onClick = {
+                    () => props.addVerse() }>
+            Delete
+        </button>
+    )
+}
+
+function LikeButton( props ) {
+    return(
+        <button className = "btn btn-primary btn-sm"
+                onClick = {
+                    () => props.addVerse() }>
+            Like
+        </button>
+    )
+}
+
 function Verse(props) {
     if(props.verse.length !== 0){
         return(
@@ -38,8 +58,15 @@ function VerseList(props) {
 
                     props.verses.map((item, index) => {
                         return <li className="list-group-item" key={index}>
-                            {item.getText()}
-                            <b className="float-right">{item.getDateTime()}</b>
+                            <div>
+                                {item.getText()}
+                                <b className="float-right">{item.getDateTime()}</b>
+                            </div>
+
+                            <div>
+                                <LikeButton/>
+                                <DeleteButton/>
+                            </div>
                         </li>
                     })
                 }
