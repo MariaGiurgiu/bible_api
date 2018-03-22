@@ -41,6 +41,13 @@ function VerseList(props) {
     )
 }
 
+class AVerse {
+    constructor(text, datetime) {
+        this.text = text;
+        this.datetime = datetime;
+    }
+}
+
 class Base extends React.Component {
     constructor(props) {
         super(props);
@@ -56,15 +63,18 @@ class Base extends React.Component {
         let self = this;
         axios.get('http://localhost:3000/data')
             .then(function (resp) {
-                let versesArr = self.state.verses;
-                versesArr.push(resp.data);
+//                 let versesArr = self.state.verses;
+//                 versesArr.push(resp.data);
 
-                let today = new Date().toString().slice(0, 25);
-                let dateArr = self.state.date;
-                dateArr.pop();
-                dateArr.push(today);
+//                 let today = new Date().toString().slice(0, 25);
+//                 let dateArr = self.state.date;
+//                 dateArr.pop();
+//                 dateArr.push(today);
 
-                self.setState({verse: resp.data, verses: versesArr, date: dateArr});
+                // TODO instantiate a verse like aVerse = new AVerse(..., ...) and then push it into verses
+            
+                // self.setState({verse: resp.data, verses: versesArr, date: dateArr}); use the one bellow, instead            
+                self.setState({verse: resp.data, verses: versesArr});
             }).catch(function (err) {
                 console.log(err)
             }
@@ -88,7 +98,8 @@ class Base extends React.Component {
                 </div>
                 <div className="container">
                     <div className="row mb-5">
-                        <VerseList verses={this.state.verses} date={this.state.date}/>
+//                         <VerseList verses={this.state.verses} date={this.state.date}/>
+                        <VerseList verses={this.state.verses} />            
                     </div>
                 </div>
             </div>
