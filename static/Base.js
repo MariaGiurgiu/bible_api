@@ -10,22 +10,12 @@ function Button( props ) {
     )
 }
 
-function DeleteButton(props){
-    return(
-        <button className = "pressMe"
-                onClick = {
-                    () => props.deleteVerse() }>
-            Delete
-        </button>
-    )
-}
-
 function Verse(props) {
     if(props.verse.length !== 0){
         return(
             <div>
                 <span>
-                    {props.verse} {props.date}
+                    {props.verse}
                 </span>
 
             </div>
@@ -45,26 +35,42 @@ function VerseList(props) {
             <h2>Previous verses</h2>
             <ul className="list-group">
                 {
-                    props.verses.forEach((item, index) => {
-                    return <li className="list-group-item" key={index}>
-                            {item} {props.verses[index]}
-                            </li>
+
+                    props.verses.map((item, index) => {
+                        return <li className="list-group-item" key={index}>
+                            {item.getText()}
+                            <b className="float-right">{item.getDateTime()}</b>
+                        </li>
                     })
                 }
+
             </ul>
         </div>
     )
 }
 
+class AVerse {
+    constructor(text, datetime) {
+        this.text = text;
+        this.datetime = datetime;
+    }
+
+    getText() {
+        return this.text;
+    }
+
+    getDateTime() {
+        return this.datetime;
+    }
+
+}
+
 class Base extends React.Component {
     constructor(props) {
         super(props);
-        let map = new Map();
-
         this.state = {
             verse: "",
-            verses: map,
-            date: ""
+            verses: []
         };
         this.addVerse = this.addVerse.bind(this)
     }
@@ -73,13 +79,15 @@ class Base extends React.Component {
         let self = this;
         axios.get('http://localhost:3000/data')
             .then(function (resp) {
+
                 let today = new Date().toString().slice(0, 25);
 
                 let versesArr = self.state.verses;
 
-                versesArr.set(resp.data, today);
-                console.log(versesArr);
-                self.setState({verse: resp.data, verses: versesArr, date: today});
+                let averse = new AVerse(resp.data, today);
+                versesArr.push(averse);
+
+                self.setState({verse: resp.data, verses: versesArr});
             }).catch(function (err) {
                 console.log(err)
             }
@@ -93,7 +101,8 @@ class Base extends React.Component {
                     <div className="container">
                     <h1 className="display-4">Random verse</h1>
                     <p className="lead">
-                        <Verse verse={this.state.verse} date={this.state.date}/>
+
+                        <Verse verse={this.state.verse} />
                     </p>
                     <hr className="my-4"/>
                     <p className="lead">
@@ -103,7 +112,7 @@ class Base extends React.Component {
                 </div>
                 <div className="container">
                     <div className="row mb-5">
-                        <VerseList verses={this.state.verses}/>
+                        <VerseList verses={this.state.verses} />
                     </div>
                 </div>
             </div>
