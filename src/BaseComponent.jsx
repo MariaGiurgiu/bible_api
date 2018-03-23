@@ -7,8 +7,8 @@ class BaseComponent extends React.Component {
             verse: "",
             verses: []
         };
-        this.addVerse = this.addVerse.bind(this);
-        this.deleteV = this.deleteV.bind(this);
+        this.addVerse = this.addVerse.bind(this); // TODO remove this and simply use ES6 arrow syntax instead
+        this.deleteV = this.deleteV.bind(this); // TODO remove this and simply use ES6 arrow syntax instead
     }
 
     addVerse() {
