@@ -1,4 +1,4 @@
-function Verse(props) {
+function VerseView(props) {
     if(props.verse.length !== 0){
         return(
             <div>

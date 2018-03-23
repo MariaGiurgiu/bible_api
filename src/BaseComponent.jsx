@@ -1,25 +1,6 @@
 const React = require("react");
 
-class AVerse {
-    constructor(text, datetime) {
-        this.id = Math.floor((Math.random() * 100) + 1);
-        this.text = text;
-        this.datetime = datetime;
-    }
-
-    getText() {
-        return this.text;
-    }
-
-    getDateTime() {
-        return this.datetime;
-    }
-    getId() {
-        return this.id;
-    }
-}
-
-class Base extends React.Component {
+class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -39,7 +20,7 @@ class Base extends React.Component {
 
                 let versesArr = self.state.verses;
 
-                let averse = new AVerse(resp.data, today);
+                let averse = new Verse(resp.data, today);
                 console.log("in add verse " + averse.getId());
                 versesArr.push(averse);
 
