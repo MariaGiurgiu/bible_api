@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "rm -f static/transpiled.js; babel --plugins transform-react-jsx static/*.js --out-file static/transpiled.js; browserify static/transpiled.js > static/bundle.js; node app.js"
+    "start": "rm -f static/*.js; babel --plugins transform-react-jsx src/*.js* --out-file static/transpiled.js; browserify static/transpiled.js > static/bundle.js; rm -f transpiled.js; node app.js"
   },
   "author": "",
   "license": "ISC",
