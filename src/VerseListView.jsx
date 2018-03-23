@@ -37,5 +37,3 @@ class VerseList extends React.Component{
         )
     }
 }
-
-ReactDOM.render(<Base />, document.getElementById("content"));
