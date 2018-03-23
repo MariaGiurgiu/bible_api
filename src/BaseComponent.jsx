@@ -1,6 +1,6 @@
 const React = require("react");
 
-class App extends React.Component {
+class BaseComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -45,7 +45,7 @@ class App extends React.Component {
                     <h1 className="display-4">Random verse</h1>
                     <p className="lead">
 
-                        <Verse verse={this.state.verse} />
+                        <VerseView verse={this.state.verse} />
                     </p>
                     <hr className="my-4"/>
                     <p className="lead">
