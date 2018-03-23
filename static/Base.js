@@ -1,83 +1,8 @@
 const React = require("react");
-const ReactDOM = require("react-dom");
-function Button( props ) {
-    return(
-        <a className="btn btn-primary btn-lg" href="#" role="button"
-                onClick = {
-                    () => props.addVerse() }>
-            Get another
-        </a>
-    )
-}
-
-function DeleteButton( props ) {
-    return(
-        <button className = "btn btn-primary btn-sm"
-                onClick = {
-                    () => props.addVerse() }>
-            Delete
-        </button>
-    )
-}
-
-function LikeButton( props ) {
-    return(
-        <button className = "btn btn-primary btn-sm"
-                onClick = {
-                    () => props.addVerse() }>
-            Like
-        </button>
-    )
-}
-
-function Verse(props) {
-    if(props.verse.length !== 0){
-        return(
-            <div>
-                <span>
-                    {props.verse}
-                </span>
-
-            </div>
-        )
-    } else {
-        return(
-            <div>
-                <img src="spinner.gif" style={{width:80, height:80}}/>
-            </div>
-        )
-    }
-
-}
-function VerseList(props) {
-    return(
-        <div>
-            <h2>Previous verses</h2>
-            <ul className="list-group">
-                {
-
-                    props.verses.map((item, index) => {
-                        return <li className="list-group-item" key={index}>
-                            <div>
-                                {item.getText()}
-                                <b className="float-right">{item.getDateTime()}</b>
-                            </div>
-
-                            <div>
-                                <LikeButton/>
-                                <DeleteButton/>
-                            </div>
-                        </li>
-                    })
-                }
-
-            </ul>
-        </div>
-    )
-}
 
 class AVerse {
     constructor(text, datetime) {
+        this.id = Math.floor((Math.random() * 100) + 1);
         this.text = text;
         this.datetime = datetime;
     }
@@ -89,7 +14,9 @@ class AVerse {
     getDateTime() {
         return this.datetime;
     }
-
+    getId() {
+        return this.id;
+    }
 }
 
 class Base extends React.Component {
@@ -99,7 +26,8 @@ class Base extends React.Component {
             verse: "",
             verses: []
         };
-        this.addVerse = this.addVerse.bind(this)
+        this.addVerse = this.addVerse.bind(this);
+        this.deleteV = this.deleteV.bind(this);
     }
 
     addVerse() {
@@ -112,6 +40,7 @@ class Base extends React.Component {
                 let versesArr = self.state.verses;
 
                 let averse = new AVerse(resp.data, today);
+                console.log("in add verse " + averse.getId());
                 versesArr.push(averse);
 
                 self.setState({verse: resp.data, verses: versesArr});
@@ -119,6 +48,12 @@ class Base extends React.Component {
                 console.log(err)
             }
         );
+    }
+
+    deleteV(id){
+        this.setState(prevState => ({
+            verses: prevState.verses.filter(el => el.getId() != id )
+        }));
     }
 
     render() {
@@ -139,12 +74,10 @@ class Base extends React.Component {
                 </div>
                 <div className="container">
                     <div className="row mb-5">
-                        <VerseList verses={this.state.verses} />
+                        <VerseList verses={this.state.verses} deleteV={this.deleteV}/>
                     </div>
                 </div>
             </div>
         )
     }
 }
-
-ReactDOM.render(<Base />, document.getElementById("content"));
