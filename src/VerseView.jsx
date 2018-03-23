@@ -10,7 +10,7 @@ function VerseView(props) {
     } else {
         return(
             <div>
-                <img src="spinner.gif" style={{width:80, height:80}}/>
+                <img src="./img/spinner.gif" style={{width:80, height:80}}/>
             </div>
         )
     }
