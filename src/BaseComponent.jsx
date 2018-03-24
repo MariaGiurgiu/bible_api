@@ -1,6 +1,10 @@
-const React = require("react");
+import React from "react"
+import VerseView from "./VerseView.jsx"
+import VerseList from "./VerseListView.jsx"
+import Button from "./Button.jsx"
+import Verse from "./verse.js"
 
-class BaseComponent extends React.Component {
+export default class BaseComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

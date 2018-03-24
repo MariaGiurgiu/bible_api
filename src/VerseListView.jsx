@@ -1,4 +1,6 @@
-class VerseList extends React.Component{
+import {DeleteButton, LikeButton} from "./DeleteLikeButtons.jsx";
+
+export default class VerseList extends React.Component{
     constructor(props){
         super(props);
 

@@ -1,5 +1,5 @@
 // TODO split it in two files, one for each component
-function DeleteButton( props ) {
+const DeleteButton = function DeleteButton( props ) {
     return(
         <button className = "btn btn-primary btn-sm"
                 onClick = {
@@ -9,7 +9,7 @@ function DeleteButton( props ) {
     )
 }
 
-function LikeButton( props ) {
+const LikeButton = function LikeButton( props ) {
     return(
         <button className = "btn btn-primary btn-sm"
                 onClick = {
@@ -18,3 +18,5 @@ function LikeButton( props ) {
         </button>
     )
 }
+
+export {DeleteButton, LikeButton}

@@ -1,4 +1,4 @@
-function VerseView(props) {
+export default function VerseView(props) {
     if(props.verse.length !== 0){
         return(
             <div>
@@ -14,7 +14,4 @@ function VerseView(props) {
             </div>
         )
     }
-
-
-
 }
