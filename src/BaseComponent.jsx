@@ -29,7 +29,17 @@ export default class BaseComponent extends React.Component {
         let versesArr = this.state.verses;
 
         let averse = new Verse(this.state.verse);
-        versesArr.push(averse);
+        let find = false;
+        for(let i = 0; i < versesArr.length; i++ ){
+            if(versesArr[i].getText() === averse.getText()) {
+                find = true;
+                alert("Verse already exists")
+            }
+        }
+        if (find === false) {
+            versesArr.push(averse);
+        }
+
 
         this.setState({verses: versesArr});
     };
