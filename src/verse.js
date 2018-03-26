@@ -1,8 +1,8 @@
 export default class Verse {
-    constructor(text, datetime) {
-        this.id = Math.floor((Math.random() * 100) + 1); // TODO Remove collision risk! See https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
+    constructor(text) {
+        this.id = this.uuidv4();
         this.text = text;
-        this.datetime = datetime; // TODO Generate 'now' date and time. Use something like: new Date(Date.now()).toLocaleString(); or a library like http://momentjs.com/
+        this.datetime = new Date(Date.now()).toLocaleString();
     }
 
     getText() {
@@ -14,5 +14,12 @@ export default class Verse {
     }
     getId() {
         return this.id;
+    }
+
+    uuidv4() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
     }
 }
