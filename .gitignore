@@ -2,3 +2,6 @@ node_modules/
 .idea/
 
 dist/main.js
+static/bundle.js
+static/transpiled.js
+
