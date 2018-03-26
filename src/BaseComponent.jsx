@@ -41,7 +41,6 @@ export default class BaseComponent extends React.Component {
             versesArr.push(averse);
         }
 
-
         this.setState({verses: versesArr});
     };
 
