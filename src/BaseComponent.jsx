@@ -1,7 +1,7 @@
 import React from "react"
 import VerseView from "./VerseView.jsx"
 import VerseList from "./VerseListView.jsx"
-import CreateButton from "./CreateButton.jsx"
+import GetButton from "./GetButton.jsx"
 import Verse from "./verse.js"
 import AddButton from "./AddButton.jsx"
 
@@ -14,24 +14,27 @@ export default class BaseComponent extends React.Component {
         };
     }
 
-    addVerse = () => {
+    getVerse = () => {
         let self = this;
         axios.get('http://localhost:3000/data')
             .then(function (resp) {
-
-                let versesArr = self.state.verses;
-
-                let averse = new Verse(resp.data);
-                console.log(averse.getId());
-
-                versesArr.push(averse);
-
-                self.setState({verse: resp.data, verses: versesArr});
+                self.setState({verse: resp.data});
             }).catch(function (err) {
                 console.log(err)
             }
         );
     };
+
+    addVerse = () => {
+        let versesArr = this.state.verses;
+
+        let averse = new Verse(this.state.verse);
+        versesArr.push(averse);
+
+        this.setState({verses: versesArr});
+    };
+
+
 
     deleteV = (id) => {
         this.setState(prevState => ({
@@ -50,10 +53,8 @@ export default class BaseComponent extends React.Component {
                     </div>
                     <hr className="my-4"/>
                     <div className="lead">
-                        <CreateButton addVerse={this.addVerse}/>
-                    </div>
-                    <div className="lead">
-                        <AddButton addVerse={this.addVerse}/>
+                        <GetButton getVerse={this.getVerse}/>
+                        <AddButton  addVerse={this.addVerse}/>
                     </div>
                     </div>
                 </div>
