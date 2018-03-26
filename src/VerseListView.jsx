@@ -3,16 +3,14 @@ import DeleteButton from "./DeleteButton.jsx";
 
 
 export default class VerseList extends React.Component{
-    constructor(props){
-        super(props);
-
-
-
-    }
-
     deleteVerse(id){
         this.props.deleteV(id);
     }
+
+    likeVerse(id) {
+        this.props.likeV(id);
+    }
+
 
     render() {
         return (
@@ -26,10 +24,11 @@ export default class VerseList extends React.Component{
                                 <div>
                                     {item.getText()}
                                     <b className="float-right">{item.getDateTime()}</b>
+                                    <b>{item.getLikes()}</b>
                                 </div>
 
                                 <div>
-                                    <LikeButton/>
+                                    <LikeButton likeVerse={this.likeVerse.bind(this, item.getId())}/>
                                     <DeleteButton deleteVerse={this.deleteVerse.bind(this, item.getId())}/>
                                 </div>
                             </li>

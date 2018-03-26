@@ -3,6 +3,7 @@ export default class Verse {
         this.id = this.uuidv4();
         this.text = text;
         this.datetime = new Date(Date.now()).toLocaleString();
+        this.likes = 0;
     }
 
     getText() {
@@ -21,5 +22,11 @@ export default class Verse {
             var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
         });
+    }
+    getLikes() {
+        return this.likes;
+    }
+    setLike() {
+        this.likes++;
     }
 }

@@ -26,9 +26,6 @@ export default class BaseComponent extends React.Component {
     };
 
 
-
-    judehuf
-
     addVerse = () => {
         let versesArr = this.state.verses;
 
@@ -56,6 +53,22 @@ export default class BaseComponent extends React.Component {
         }));
     };
 
+    likeV = (id) => {
+        let filter = this.state.verses.filter(v => v.getId() === id);
+        let verse = filter[0];
+        verse.setLike();
+
+        let verses = this.state.verses;
+        for(let i = 0; i < verses.length; i++ ){
+            if(verses[i].getId() === verse.getId()) {
+                verses[i] = verse;
+            }
+        }
+        this.setState({ verses: verses});
+
+
+    };
+
     render() {
         return(
             <div>
@@ -74,7 +87,7 @@ export default class BaseComponent extends React.Component {
                 </div>
                 <div className="container">
                     <div className="row mb-5">
-                        <VerseList verses={this.state.verses} deleteV={this.deleteV}/>
+                        <VerseList verses={this.state.verses} deleteV={this.deleteV} likeV={this.likeV}/>
                     </div>
                 </div>
             </div>
