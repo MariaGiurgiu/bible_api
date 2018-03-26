@@ -3,6 +3,7 @@ import VerseView from "./VerseView.jsx"
 import VerseList from "./VerseListView.jsx"
 import CreateButton from "./CreateButton.jsx"
 import Verse from "./verse.js"
+import AddButton from "./AddButton.jsx"
 
 export default class BaseComponent extends React.Component {
     constructor(props) {
@@ -50,6 +51,9 @@ export default class BaseComponent extends React.Component {
                     <hr className="my-4"/>
                     <div className="lead">
                         <CreateButton addVerse={this.addVerse}/>
+                    </div>
+                    <div className="lead">
+                        <AddButton addVerse={this.addVerse}/>
                     </div>
                     </div>
                 </div>
