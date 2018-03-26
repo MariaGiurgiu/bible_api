@@ -25,10 +25,6 @@ export default class BaseComponent extends React.Component {
         );
     };
 
-
-
-    judehuf
-
     addVerse = () => {
         let versesArr = this.state.verses;
 
@@ -43,7 +39,6 @@ export default class BaseComponent extends React.Component {
         if (find === false) {
             versesArr.push(averse);
         }
-
 
         this.setState({verses: versesArr});
     };
