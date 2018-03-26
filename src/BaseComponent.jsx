@@ -25,6 +25,10 @@ export default class BaseComponent extends React.Component {
         );
     };
 
+
+
+    judehuf
+
     addVerse = () => {
         let versesArr = this.state.verses;
 
