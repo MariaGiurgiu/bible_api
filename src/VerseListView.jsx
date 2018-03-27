@@ -12,7 +12,6 @@ export default class VerseList extends React.Component {
         };
     }
 
-
     addVerse = () => {
         console.log('add verse')
         let self = this;
@@ -31,14 +30,14 @@ export default class VerseList extends React.Component {
         }
     };
 
-    deleteV (id){
+    deleteVerse (id){
         console.log('delete')
         this.setState(prevState => ({
             verses: prevState.verses.filter(el => el.getId() !== id )
         }));
     };
 
-    likeV (id){
+    likeVerse (id){
         console.log('like')
         let filter = this.state.verses.filter(v => v.getId() === id);
         let verse = filter[0];
@@ -71,8 +70,8 @@ export default class VerseList extends React.Component {
                                 </div>
 
                                 <div>
-                                    <LikeButton likeV={this.likeV.bind(this, item.getId())}/>
-                                    <DeleteButton deleteV={this.deleteV.bind(this, item.getId())}/>
+                                    <LikeButton likeVerse={this.likeVerse.bind(this, item.getId())}/>
+                                    <DeleteButton deleteVerse={this.deleteVerse.bind(this, item.getId())}/>
                                 </div>
                             </li>
                         })

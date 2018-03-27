@@ -15,7 +15,6 @@ export default class BaseComponent extends React.Component {
     }
 
     componentDidMount() {
-        console.log("in did");
         this.getVerse();
     }
 
@@ -31,14 +30,6 @@ export default class BaseComponent extends React.Component {
             }
         );
     };
-
-    // addVerse = () => {
-    //     console.log("in add")
-    //     let aVerse = new Verse(this.state.verse);
-    //
-    //     this.setState({verse: aVerse});
-    // };
-
 
     render() {
         return(
