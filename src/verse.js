@@ -26,7 +26,7 @@ export default class Verse {
     getLikes() {
         return this.likes;
     }
-    setLike() {
+    incrementLikes() {
         this.likes++;
     }
 }

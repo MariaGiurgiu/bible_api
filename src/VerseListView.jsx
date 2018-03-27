@@ -41,7 +41,7 @@ export default class VerseList extends React.Component {
         console.log('like')
         let filter = this.state.verses.filter(v => v.getId() === id);
         let verse = filter[0];
-        verse.setLike();
+        verse.incrementLikes();
 
         let verses = this.state.verses;
         for(let i = 0; i < verses.length; i++ ){
