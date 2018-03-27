@@ -13,7 +13,6 @@ export default class VerseList extends React.Component {
     }
 
     addVerse = () => {
-        console.log('add verse')
         let self = this;
         let found = false;
         console.log(this.state.verses);
@@ -54,8 +53,7 @@ export default class VerseList extends React.Component {
 
     render() {
         return (
-
-            <div>
+            <div className="container">
                 <AddButton addVerse={this.addVerse}/>
 
                 <h2>Previous verses </h2>
@@ -66,12 +64,12 @@ export default class VerseList extends React.Component {
                                 <div>
                                     {item.getText()}
                                     <b className="float-right">{item.getDateTime()}</b>
-                                    <b>{item.getLikes()}</b>
                                 </div>
 
                                 <div>
                                     <LikeButton likeVerse={this.likeVerse.bind(this, item.getId())}/>
                                     <DeleteButton deleteVerse={this.deleteVerse.bind(this, item.getId())}/>
+                                    <b> {item.getLikes()}</b>
                                 </div>
                             </li>
                         })

@@ -19,7 +19,6 @@ export default class BaseComponent extends React.Component {
     }
 
     getVerse = () => {
-        console.log("in get");
         let self = this;
         axios.get('http://localhost:3000/data')
             .then(function (resp) {
