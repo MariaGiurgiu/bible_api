@@ -5,6 +5,5 @@ export default function GetButton( props ) {
                () => props.getVerse() }>
             Get another
         </a>
-
     )
 }

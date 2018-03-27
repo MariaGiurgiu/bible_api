@@ -1,9 +1,11 @@
 import React from "react"
+
 import VerseView from "./VerseView.jsx"
 import VerseList from "./VerseListView.jsx"
 import GetButton from "./GetButton.jsx"
-import Verse from "./verse.js"
 import AddButton from "./AddButton.jsx"
+
+import Verse from "./verse.js"
 
 export default class BaseComponent extends React.Component {
     constructor(props) {
@@ -25,7 +27,6 @@ export default class BaseComponent extends React.Component {
         );
     };
 
-
     addVerse = () => {
         let averse = new Verse(this.state.verse);
 
@@ -36,15 +37,13 @@ export default class BaseComponent extends React.Component {
                 found = true;
                 alert("Verse already exists")
             }
-        })
+        });
         if (found === false) {
             versesArr.push(averse);
         }
 
         this.setState({verses: versesArr});
     };
-
-
 
     deleteV = (id) => {
         this.setState(prevState => ({
@@ -64,8 +63,6 @@ export default class BaseComponent extends React.Component {
             }
         }
         this.setState({ verses: verses});
-
-
     };
 
     render() {

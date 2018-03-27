@@ -5,6 +5,5 @@ export default function CreateButton( props ) {
                () => props.addVerse() }>
             Add to list
         </a>
-
     )
 }

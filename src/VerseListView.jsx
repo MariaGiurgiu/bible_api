@@ -1,7 +1,6 @@
 import LikeButton from "./LikeButton.jsx";
 import DeleteButton from "./DeleteButton.jsx";
 
-
 export default class VerseList extends React.Component{
     deleteVerse(id){
         this.props.deleteV(id);
@@ -10,7 +9,6 @@ export default class VerseList extends React.Component{
     likeVerse(id) {
         this.props.likeV(id);
     }
-
 
     render() {
         return (
