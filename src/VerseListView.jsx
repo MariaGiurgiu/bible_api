@@ -15,7 +15,6 @@ export default class VerseList extends React.Component {
     addVerse = () => {
         let self = this;
         let found = false;
-        console.log(this.state.verses);
         let versesArr = this.state.verses;
         versesArr.map(function(item, index) {
             if(item.getText() === self.props.verse.getText()) {
@@ -30,14 +29,12 @@ export default class VerseList extends React.Component {
     };
 
     deleteVerse (id){
-        console.log('delete')
         this.setState(prevState => ({
             verses: prevState.verses.filter(el => el.getId() !== id )
         }));
     };
 
     likeVerse (id){
-        console.log('like')
         let filter = this.state.verses.filter(v => v.getId() === id);
         let verse = filter[0];
         verse.incrementLikes();
