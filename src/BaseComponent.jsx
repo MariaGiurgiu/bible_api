@@ -27,10 +27,10 @@ export default class BaseComponent extends React.Component {
 
 
     addVerse = () => {
-        let versesArr = this.state.verses;
-
         let averse = new Verse(this.state.verse);
+
         let found = false;
+        let versesArr = this.state.verses;
         versesArr.map(function(item, index) {
             if(item.getText() === averse.getText()) {
                 found = true;
@@ -48,7 +48,7 @@ export default class BaseComponent extends React.Component {
 
     deleteV = (id) => {
         this.setState(prevState => ({
-            verses: prevState.verses.filter(el => el.getId() != id )
+            verses: prevState.verses.filter(el => el.getId() !== id )
         }));
     };
 
