@@ -1,7 +1,14 @@
 import LikeButton from "./LikeButton.jsx";
 import DeleteButton from "./DeleteButton.jsx";
 
-export default class VerseList extends React.Component{
+export default class VerseList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            verses: []
+        };
+    }
+
     deleteVerse(id){
         this.props.deleteV(id);
     }
@@ -10,14 +17,28 @@ export default class VerseList extends React.Component{
         this.props.likeV(id);
     }
 
+    componentWillReceiveProps() {
+        let found = false;
+        let versesArr = this.state.verses;
+        versesArr.map(function(item, index) {
+            if(item.getText() === this.props.verse.getText()) {
+                found = true;
+                alert("Verse already exists")
+            }
+        });
+        if (found === false && this.props.verse !== null) {
+            versesArr.push(this.props.verse);
+            this.setState({verses: versesArr})
+        }
+    }
+
     render() {
         return (
             <div>
                 <h2>Previous verses</h2>
                 <ul className="list-group">
                     {
-
-                        this.props.verses.map((item, index) => {
+                        this.state.verses.map((item, index) => {
                             return <li className="list-group-item" key={index}>
                                 <div>
                                     {item.getText()}
@@ -32,7 +53,6 @@ export default class VerseList extends React.Component{
                             </li>
                         })
                     }
-
                 </ul>
             </div>
         )

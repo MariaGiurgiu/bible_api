@@ -1,9 +1,9 @@
 export default function VerseView(props) {
-    if(props.verse.length !== 0){
+    if(props.verse !== null){
         return(
             <div>
                 <span>
-                    {props.verse}
+                    {props.verse.getText()}
                 </span>
             </div>
         )

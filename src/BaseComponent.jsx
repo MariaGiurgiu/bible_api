@@ -11,8 +11,7 @@ export default class BaseComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            verse: "",
-            verses: []
+            verse: null
         };
     }
 
@@ -24,7 +23,8 @@ export default class BaseComponent extends React.Component {
         let self = this;
         axios.get('http://localhost:3000/data')
             .then(function (resp) {
-                self.setState({verse: resp.data});
+                let v = new Verse(resp.data);
+                self.setState({verse: v});
             }).catch(function (err) {
                 console.log(err)
             }
@@ -32,21 +32,9 @@ export default class BaseComponent extends React.Component {
     };
 
     addVerse = () => {
-        let averse = new Verse(this.state.verse);
+        let aVerse = new Verse(this.state.verse);
 
-        let found = false;
-        let versesArr = this.state.verses;
-        versesArr.map(function(item, index) {
-            if(item.getText() === averse.getText()) {
-                found = true;
-                alert("Verse already exists")
-            }
-        });
-        if (found === false) {
-            versesArr.push(averse);
-        }
-
-        this.setState({verses: versesArr});
+        this.setState({verse: aVerse});
     };
 
     deleteV = (id) => {
@@ -87,7 +75,7 @@ export default class BaseComponent extends React.Component {
                 </div>
                 <div className="container">
                     <div className="row mb-5">
-                        <VerseList verses={this.state.verses} deleteV={this.deleteV} likeV={this.likeV}/>
+                        <VerseList verse={this.state.verse} deleteV={this.deleteV} likeV={this.likeV}/>
                     </div>
                 </div>
             </div>
