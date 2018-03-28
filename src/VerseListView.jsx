@@ -34,6 +34,7 @@ export default class VerseList extends React.Component {
     };
 
     deleteVerse (id){
+        this.verseRepository.delete(id);
         this.setState(prevState => ({
             verses: prevState.verses.filter(el => el.getId() !== id )
         }));
