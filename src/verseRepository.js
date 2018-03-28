@@ -29,7 +29,7 @@ export default class VerseRepository {
         }
     };
 
-    getOneById(id) {
+    getOneById = (id, f) => {
         let open = indexedDB.open("MyDatabase", 1);
 
         open.onsuccess = function () {
@@ -42,7 +42,8 @@ export default class VerseRepository {
             let getOneById = store.get(id);
 
             getOneById.onsuccess = function () {
-                console.log(getOneById.result);
+                let verse = new Verse(getOneById.text, getOneById.id, getOneById.datetime, getOneById.likes);
+                f(verse);
             };
 
             // Close the db when the transaction is done
@@ -50,7 +51,7 @@ export default class VerseRepository {
                 db.close();
             };
         }
-    }
+    };
 
     add(v) {
         let open = indexedDB.open("MyDatabase", 1);
@@ -60,8 +61,6 @@ export default class VerseRepository {
             let db = open.result;
             let tx = db.transaction("MyObjectStore", "readwrite");
             let store = tx.objectStore("MyObjectStore");
-
-            console.log(v);
             // Add some data
             store.add(v);
 
@@ -73,24 +72,27 @@ export default class VerseRepository {
     }
 
     update(v) {
-        // let open = indexedDB.open("MyDatabase", 1);
-        //
-        // open.onsuccess = function () {
-        //     console.log(v)
-        //     // Start a new transaction
-        //     let db = open.result;
-        //     let tx = db.transaction("MyObjectStore", "readwrite");
-        //     let store = tx.objectStore("MyObjectStore");
-        //
-        //     console.log(v);
-        //     // Update some data
-        //     store.put(v);
-        //
-        //     // Close the db when the transaction is done
-        //     tx.oncomplete = function () {
-        //         db.close();
-        //     };
-        // }
+        console.log("update")
+        let open = indexedDB.open("MyDatabase", 1);
+        let self = this;
+
+        open.onsuccess = function () {
+
+            // Start a new transaction
+            let db = open.result;
+            let tx = db.transaction("MyObjectStore", "readwrite");
+            let store = tx.objectStore("MyObjectStore");
+
+            self.getOneById(v.id, (result) => {
+                let verse = result;
+                verse.incrementLikes();
+                store.put(verse,verse.id);
+            });
+            // Close the db when the transaction is done
+            tx.oncomplete = function () {
+                db.close();
+            };
+        }
     }
 
     delete(id) {

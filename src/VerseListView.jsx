@@ -40,18 +40,25 @@ export default class VerseList extends React.Component {
         }));
     };
 
-    likeVerse (id){
-        let filter = this.state.verses.filter(v => v.getId() === id);
-        let verse = filter[0];
-        verse.incrementLikes();
+    likeVerse (item){
+        // let filter = this.state.verses.filter(v => v.getId() === id);
+        // let verse = filter[0];
+        // verse.incrementLikes();
 
-        let verses = this.state.verses;
-        for(let i = 0; i < verses.length; i++ ){
-            if(verses[i].getId() === verse.getId()) {
-                verses[i] = verse;
-            }
-        }
-        this.setState({ verses: verses});
+        // this.verseRepository.getOneById(id, (result) => {
+        //     let verse = result;
+        //     verse.incrementLikes();
+        //     console.log(verse);
+        // });
+        this.verseRepository.update(item);
+        // let verse = this.verseRepository.getOneById(id);
+        // let verses = this.state.verses;
+        // for(let i = 0; i < verses.length; i++ ){
+        //     if(verses[i].getId() === verse.getId()) {
+        //         verses[i] = verse;
+        //     }
+        // }
+        // this.setState({ verses: verses});
     };
 
     componentDidMount() {
@@ -76,7 +83,7 @@ export default class VerseList extends React.Component {
                                 </div>
 
                                 <div>
-                                    <LikeButton likeVerse={this.likeVerse.bind(this, item.getId())}/>
+                                    <LikeButton likeVerse={this.likeVerse.bind(this, item)}/>
                                     <DeleteButton deleteVerse={this.deleteVerse.bind(this, item.getId())}/>
                                     <b> {item.getLikes()}</b>
                                 </div>
