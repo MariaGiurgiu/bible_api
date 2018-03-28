@@ -4,9 +4,12 @@ import LikeButton from "./LikeButton.jsx";
 import DeleteButton from "./DeleteButton.jsx";
 import AddButton from "./AddButton.jsx" ;
 
+import VerseRepository from "./verseRepository.js" ;
+
 export default class VerseList extends React.Component {
     constructor(props) {
         super(props);
+        this.verseRepository = new VerseRepository()
         this.state = {
             verses: []
         };
@@ -15,16 +18,18 @@ export default class VerseList extends React.Component {
     addVerse = () => {
         let self = this;
         let found = false;
-        let versesArr = this.state.verses;
-        versesArr.map(function(item, index) {
-            if(item.getText() === self.props.verse.getText()) {
+
+        this.state.verses.map(function(item, index) {
+            if (item.getText() === self.props.verse.getText()) {
                 found = true;
                 alert("Verse already exists")
             }
         });
         if (found === false && this.props.verse !== null) {
-            versesArr.push(this.props.verse);
-            this.setState({verses: versesArr})
+            this.verseRepository.add(this.props.verse)
+            this.verseRepository.findAll((result) => {
+                this.setState({verses: result})
+            })
         }
     };
 
@@ -47,6 +52,12 @@ export default class VerseList extends React.Component {
         }
         this.setState({ verses: verses});
     };
+
+    componentDidMount() {
+        this.verseRepository.findAll((result) => {
+            this.setState({verses: result})
+        })
+    }
 
     render() {
         return (

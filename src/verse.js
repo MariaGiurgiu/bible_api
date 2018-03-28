@@ -1,9 +1,9 @@
 export default class Verse {
-    constructor(text) {
-        this.id = this.uuidv4();
+    constructor(text, id, datetime, likes) {
+        this.id = (typeof id === "undefined" ? this.uuidv4() : id)
         this.text = text;
-        this.datetime = new Date(Date.now()).toLocaleString();
-        this.likes = 0;
+        this.datetime = (typeof datetime === "undefined" ? new Date(Date.now()).toLocaleString() : datetime);
+        this.likes = (typeof likes === "undefined" ? 0: likes);
     }
 
     getText() {
