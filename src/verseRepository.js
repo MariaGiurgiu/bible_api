@@ -71,46 +71,42 @@ export default class VerseRepository {
         }
     }
 
-    update(v) {
-        console.log("update")
-        let open = indexedDB.open("MyDatabase", 1);
-        let self = this;
+    addLike(id) {
+        let openIDDBRequest = indexedDB.open("MyDatabase", 1);
 
-        open.onsuccess = function () {
-
-            // Start a new transaction
-            let db = open.result;
+        openIDDBRequest.onsuccess = () => {
+            let db = openIDDBRequest.result;
             let tx = db.transaction("MyObjectStore", "readwrite");
             let store = tx.objectStore("MyObjectStore");
 
-            self.getOneById(v.id, (result) => {
-                let verse = result;
+            this.getOneById(id, (verse) => {
                 verse.incrementLikes();
-                store.put(verse,verse.id);
+                store.put(verse, id);
+                tx.oncomplete = function () {
+                    db.close();
+                };
             });
-            // Close the db when the transaction is done
-            tx.oncomplete = function () {
-                db.close();
-            };
         }
     }
 
-    delete(id) {
-        let open = indexedDB.open("MyDatabase", 1);
+    delete(id, callback) {
+        let openIDDBRequest = indexedDB.open("MyDatabase", 1);
 
-        open.onsuccess = function () {
-            // Start a new transaction
-            let db = open.result;
+        openIDDBRequest.onsuccess = function () {
+            let db = openIDDBRequest.result;
             let tx = db.transaction("MyObjectStore", "readwrite");
             let store = tx.objectStore("MyObjectStore");
 
-            // Delete some data
             store.delete(id);
 
-            // Close the db when the transaction is done
             tx.oncomplete = function () {
                 db.close();
+                callback(null, id)
             };
+        };
+
+        openIDDBRequest.onerror = function(err) {
+            callback(err, null)
         }
     }
 }
