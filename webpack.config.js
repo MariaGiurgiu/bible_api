@@ -12,5 +12,6 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    watch: true
 };
