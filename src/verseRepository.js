@@ -29,7 +29,7 @@ export default class VerseRepository {
         }
     };
 
-    getOneById = (id, f) => {
+    getOneById = (id, incrementLikesAndPutVerseToDb) => {
         let open = indexedDB.open("MyDatabase", 1);
 
         open.onsuccess = function () {
@@ -42,14 +42,15 @@ export default class VerseRepository {
             let getOneById = store.get(id);
 
             getOneById.onsuccess = function () {
-                let verse = new Verse(getOneById.text, getOneById.id, getOneById.datetime, getOneById.likes);
-                f(verse);
+                let result = getOneById.result
+                let verse = new Verse(result.text, result.id, result.datetime, result.likes);
+                incrementLikesAndPutVerseToDb(store, verse);
             };
 
             // Close the db when the transaction is done
-            tx.oncomplete = function () {
-                db.close();
-            };
+            // tx.oncomplete = function () {
+            //     db.close();
+            // };
         }
     };
 
@@ -71,23 +72,21 @@ export default class VerseRepository {
         }
     }
 
-    addLike(id) {
-        let openIDDBRequest = indexedDB.open("MyDatabase", 1);
+    addLike(id, updateVerseInDOMorError) {
+        let incrementLikesAndPutVerseToDb = (store, verse) => {
+            verse.incrementLikes();
+            let putRequest = store.put(verse);
 
-        openIDDBRequest.onsuccess = () => {
-            let db = openIDDBRequest.result;
-            let tx = db.transaction("MyObjectStore", "readwrite");
-            let store = tx.objectStore("MyObjectStore");
+            putRequest.onsuccess = () => {
+                updateVerseInDOMorError(null, verse.getLikes())
+            }
 
-            this.getOneById(id, (verse) => {
-                verse.incrementLikes();
-                store.put(verse, id);
-                });
-
-            tx.oncomplete = function () {
-                db.close();
-            };
+            putRequest.onerror = (err) => {
+                updateVerseInDOMorError(err, null)
+            }
         }
+
+        this.getOneById(id, incrementLikesAndPutVerseToDb);
     }
 
     delete(id, callback) {

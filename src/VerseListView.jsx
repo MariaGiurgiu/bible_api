@@ -5,6 +5,7 @@ import DeleteButton from "./DeleteButton.jsx";
 import AddButton from "./AddButton.jsx" ;
 
 import VerseRepository from "./verseRepository.js" ;
+import Verse from "./verse";
 
 export default class VerseList extends React.Component {
     constructor(props) {
@@ -48,7 +49,21 @@ export default class VerseList extends React.Component {
     };
 
     addLike (id) {
-        this.verseRepository.addLike(id);
+        let updateVerseInDOMorError = (err, likes) => {
+            if (err) {
+                alert("Failed to like a verse!");
+                return
+            }
+            this.setState({
+                verses: this.state.verses.map(el => {
+                    if (el.getId() === id) {
+                        return new Verse(el.text, el.id, el.datetime, likes)
+                    }
+                    return el
+                })
+            })
+        }
+        this.verseRepository.addLike(id, updateVerseInDOMorError);
     };
 
     componentDidMount() {
@@ -73,7 +88,7 @@ export default class VerseList extends React.Component {
                                 </div>
 
                                 <div>
-                                    <LikeButton addLike={this.addLike.bind(this, item.getId())}/>
+                                    <LikeButton addLike={this.addLike.bind(this, item.getId())} />
                                     <DeleteButton deleteVerse={this.deleteVerse.bind(this, item.getId())}/>
                                     <b> {item.getLikes()}</b>
                                 </div>
