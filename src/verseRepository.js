@@ -82,10 +82,11 @@ export default class VerseRepository {
             this.getOneById(id, (verse) => {
                 verse.incrementLikes();
                 store.put(verse, id);
-                tx.oncomplete = function () {
-                    db.close();
-                };
-            });
+                });
+
+            tx.oncomplete = function () {
+                db.close();
+            };
         }
     }
 

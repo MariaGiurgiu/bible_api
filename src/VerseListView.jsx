@@ -73,7 +73,7 @@ export default class VerseList extends React.Component {
                                 </div>
 
                                 <div>
-                                    {/*<LikeButton addLike={this.likeVerse.bind(this, item.getId())}/>*/}
+                                    <LikeButton addLike={this.addLike.bind(this, item.getId())}/>
                                     <DeleteButton deleteVerse={this.deleteVerse.bind(this, item.getId())}/>
                                     <b> {item.getLikes()}</b>
                                 </div>
