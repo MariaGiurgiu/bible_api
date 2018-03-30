@@ -1,3 +1,8 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import {BrowserRouter} from 'react-router-dom';
+
 import BaseComponent from "./BaseComponent.jsx"
 
 let indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
@@ -24,5 +29,9 @@ request.onsuccess = function(e) {
 
     let db = request.result;
 
-    ReactDOM.render(<BaseComponent />, document.getElementById("content"));
+    ReactDOM.render(
+        <BrowserRouter>
+            <BaseComponent/>
+        </BrowserRouter>,
+        document.getElementById("content"));
 };
