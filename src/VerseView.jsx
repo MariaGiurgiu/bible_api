@@ -3,6 +3,7 @@ export default class VerseView extends React.Component{
     constructor(props){
         super(props);
     }
+
     render(){
         if(this.props.verse !== null){
             return(
@@ -13,7 +14,7 @@ export default class VerseView extends React.Component{
                             <span>{this.props.verse.getText()}</span>
                             <hr className="my-4"/>
                             <div className="lead">
-                                <GetButton getVerse={this.getVerse}/>
+                                <GetButton getVerse={this.props.getVerse.bind(this)}/>
                             </div>
                         </div>
                     </div>
@@ -28,6 +29,4 @@ export default class VerseView extends React.Component{
             )
         }
     }
-
-
 }

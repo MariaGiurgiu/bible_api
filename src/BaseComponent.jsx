@@ -35,16 +35,17 @@ export default class BaseComponent extends React.Component {
     render() {
         return(
             <div>
+
                 <nav className="navbar navbar-light">
                     <ul className="nav navbar-nav">
 
                         <li><Link to="/verse">Verse</Link></li>
                         <li><Link to="/list">PreviousVerses</Link></li>
-
                     </ul>
                 </nav>
+
                 <Route path='/verse' render={(props) => (
-                    <VerseView {...props} verse={this.state.verse} />
+                    <VerseView {...props} verse={this.state.verse} getVerse={this.getVerse}/>
                 )}/>
                 <Route path='/list' component={VerseList}/>
 
