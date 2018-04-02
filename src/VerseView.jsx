@@ -23,8 +23,8 @@ export default class VerseView extends React.Component{
             )
         } else {
             return(
-                <div>
-                    <img src="./img/spinner.gif" style={{width:80, height:80}}/>
+                <div className="container">
+                    <img src="./img/spinner.gif"/>
                 </div>
             )
         }

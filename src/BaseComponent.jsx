@@ -4,7 +4,6 @@ import {Link, Route} from 'react-router-dom';
 
 import VerseView from "./VerseView.jsx"
 import VerseList from "./VerseListView.jsx"
-import GetButton from "./GetButton.jsx"
 
 import Verse from "./verse.js"
 
@@ -35,11 +34,10 @@ export default class BaseComponent extends React.Component {
     render() {
         return(
             <div>
-
                 <nav className="navbar navbar-expand-sm bg-light">
                     <ul className="navbar-nav">
                         <li>
-                            <Link to="/verse" style={{marginRight: 50}}>Verse</Link>
+                            <Link to="/" style={{marginRight: 50}}>Verse</Link>
                         </li>
 
                         <li>
@@ -48,7 +46,7 @@ export default class BaseComponent extends React.Component {
                     </ul>
                 </nav>
 
-                <Route path='/verse' render={(props) => (
+                <Route path='/' render={(props) => (
                     <VerseView {...props} verse={this.state.verse} getVerse={this.getVerse}/>
                 )}/>
                 <Route path='/list' component={VerseList}/>
