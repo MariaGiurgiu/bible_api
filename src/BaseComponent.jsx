@@ -35,9 +35,9 @@ export default class BaseComponent extends React.Component {
         return(
             <div>
                 <nav className="navbar navbar-expand-sm bg-light">
-                    <ul className="navbar-nav">
+                    <ul className="nav navbar-nav">
                         <li>
-                            <Link to="/" style={{marginRight: 50}}>Verse</Link>
+                            <Link to="/verse" style={{marginRight: 50}}>Verse</Link>
                         </li>
 
                         <li>
@@ -46,7 +46,7 @@ export default class BaseComponent extends React.Component {
                     </ul>
                 </nav>
 
-                <Route path='/' render={(props) => (
+                <Route path='/verse' render={(props) => (
                     <VerseView {...props} verse={this.state.verse} getVerse={this.getVerse}/>
                 )}/>
                 <Route path='/list' component={VerseList}/>
