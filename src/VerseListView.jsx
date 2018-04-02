@@ -62,7 +62,7 @@ export default class VerseList extends React.Component {
                     return el
                 })
             })
-        }
+        };
         this.verseRepository.addLike(id, updateVerseInDOMorError);
     };
 

@@ -36,11 +36,15 @@ export default class BaseComponent extends React.Component {
         return(
             <div>
 
-                <nav className="navbar navbar-light">
-                    <ul className="nav navbar-nav">
+                <nav className="navbar navbar-expand-sm bg-light">
+                    <ul className="navbar-nav">
+                        <li>
+                            <Link to="/verse" style={{marginRight: 50}}>Verse</Link>
+                        </li>
 
-                        <li><Link to="/verse">Verse</Link></li>
-                        <li><Link to="/list">PreviousVerses</Link></li>
+                        <li>
+                            <Link to="/list">Previous Verses</Link>
+                        </li>
                     </ul>
                 </nav>
 
