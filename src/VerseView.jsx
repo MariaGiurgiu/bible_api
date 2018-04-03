@@ -1,8 +1,17 @@
 import GetButton from "./GetButton.jsx";
+import SaveButton from "./AddButton.jsx";
+
+import VerseRepository from "./verseRepository";
+
 export default class VerseView extends React.Component{
     constructor(props){
         super(props);
+        this.verseRepository = new VerseRepository();
     }
+
+    saveVerse = (v) => {
+        this.verseRepository.add(v);
+    };
 
     render(){
         if(this.props.verse !== null){
@@ -15,6 +24,7 @@ export default class VerseView extends React.Component{
                             <hr className="my-4"/>
                             <div className="lead">
                                 <GetButton getVerse={this.props.getVerse.bind(this)}/>
+                                <SaveButton saveVerse={this.saveVerse.bind(this, this.props.verse)}/>
                             </div>
                         </div>
                     </div>

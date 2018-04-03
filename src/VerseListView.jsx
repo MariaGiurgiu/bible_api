@@ -16,28 +16,10 @@ export default class VerseList extends React.Component {
         };
     }
 
-    addVerse = () => {
-        let self = this;
-        let found = false;
-
-        this.state.verses.map(function(item, index) {
-            if (item.getText() === self.props.verse.getText()) {
-                found = true;
-                alert("Verse already exists")
-            }
-        });
-        if (found === false && this.props.verse !== null) {
-            this.verseRepository.add(this.props.verse)
-            this.verseRepository.findAll((result) => {
-                this.setState({verses: result})
-            })
-        }
-    };
-
-    deleteVerse (id) {
+    remove (id) {
         let callback = (err, id) => {
             if (err) {
-                alert("Failed to delete a verse!");
+                alert("Failed to remove a verse!");
                 return
             }
             this.setState({
@@ -45,10 +27,10 @@ export default class VerseList extends React.Component {
             })
         };
 
-        this.verseRepository.delete(id, callback);
+        this.verseRepository.remove(id, callback);
     };
 
-    addLike (id) {
+    like (id) {
         let updateVerseInDOMorError = (err, likes) => {
             if (err) {
                 alert("Failed to like a verse!");
@@ -63,7 +45,7 @@ export default class VerseList extends React.Component {
                 })
             })
         };
-        this.verseRepository.addLike(id, updateVerseInDOMorError);
+        this.verseRepository.like(id, updateVerseInDOMorError);
     };
 
     componentDidMount() {
@@ -75,8 +57,6 @@ export default class VerseList extends React.Component {
     render() {
         return (
             <div className="container">
-                <AddButton addVerse={this.addVerse}/>
-
                 <h2>Previous verses </h2>
                 <ul className="list-group">
                     {
@@ -88,8 +68,8 @@ export default class VerseList extends React.Component {
                                 </div>
 
                                 <div>
-                                    <LikeButton addLike={this.addLike.bind(this, item.getId())} />
-                                    <DeleteButton deleteVerse={this.deleteVerse.bind(this, item.getId())}/>
+                                    <LikeButton likeVerse={this.like.bind(this, item.getId())} />
+                                    <DeleteButton deleteVerse={this.remove.bind(this, item.getId())}/>
                                     <b> {item.getLikes()}</b>
                                 </div>
                             </li>

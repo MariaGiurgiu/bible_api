@@ -16,7 +16,7 @@ app.get('/data', function (req, res) {
     );
 });
 
-app.get('/verse', function (req, res){
+app.get('/', function (req, res){
     fs.readFile('./index.html', 'utf8', function(err, data){
         if (err) throw err;
         res.send(data);

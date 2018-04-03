@@ -37,7 +37,7 @@ export default class BaseComponent extends React.Component {
                 <nav className="navbar navbar-expand-sm bg-light">
                     <ul className="nav navbar-nav">
                         <li>
-                            <Link to="/verse" style={{marginRight: 50}}>Verse</Link>
+                            <Link to="/" style={{marginRight: 50}}>Verse</Link>
                         </li>
 
                         <li>
@@ -46,7 +46,7 @@ export default class BaseComponent extends React.Component {
                     </ul>
                 </nav>
 
-                <Route path='/verse' render={(props) => (
+                <Route path='/' exact render={(props) => (
                     <VerseView {...props} verse={this.state.verse} getVerse={this.getVerse}/>
                 )}/>
                 <Route path='/list' component={VerseList}/>

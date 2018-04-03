@@ -72,7 +72,7 @@ export default class VerseRepository {
         }
     }
 
-    addLike(id, updateVerseInDOMorError) {
+    like(id, updateVerseInDOMorError) {
         let incrementLikesAndPutVerseToDb = (store, verse) => {
             verse.incrementLikes();
             let putRequest = store.put(verse);
@@ -89,7 +89,7 @@ export default class VerseRepository {
         this.getOneById(id, incrementLikesAndPutVerseToDb);
     }
 
-    delete(id, callback) {
+    remove(id, callback) {
         let openIDDBRequest = indexedDB.open("MyDatabase", 1);
 
         openIDDBRequest.onsuccess = function () {
