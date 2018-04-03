@@ -16,7 +16,7 @@ export default class VerseRepository {
             getAll.onsuccess = function () {
                 let versesArr = [];
                 getAll.result.map((item) => {
-                    let verse = new Verse(item.text, item.id, item.datetime, item.likes)
+                    let verse = new Verse(item.text, item.id, item.datetime, item.likes, item.bookname, item.chapter, item.verse)
                     versesArr.push(verse)
                 });
                 f(versesArr);
@@ -43,7 +43,7 @@ export default class VerseRepository {
 
             getOneById.onsuccess = function () {
                 let result = getOneById.result
-                let verse = new Verse(result.text, result.id, result.datetime, result.likes);
+                let verse = new Verse(result.text, result.id, result.datetime, result.likes, result.bookname, result.chapter, result.verse);
                 incrementLikesAndPutVerseToDb(store, verse);
             };
 
@@ -79,12 +79,12 @@ export default class VerseRepository {
 
             putRequest.onsuccess = () => {
                 updateVerseInDOMorError(null, verse.getLikes())
-            }
+            };
 
             putRequest.onerror = (err) => {
                 updateVerseInDOMorError(err, null)
             }
-        }
+        };
 
         this.getOneById(id, incrementLikesAndPutVerseToDb);
     }

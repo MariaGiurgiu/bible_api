@@ -1,13 +1,15 @@
 export default class Verse {
-    constructor(text, id, datetime, likes) {
-        this.id = (typeof id === "undefined" ? this.uuidv4() : id)
+    constructor(text, id, datetime, likes, bookname, chapter, verse) {
+        this.bookname = bookname;
+        this.chapter = chapter;
+        this.verse = verse;
+        this.id = (typeof id === "undefined" ? this.uuidv4() : id);
         this.text = text;
         this.datetime = (typeof datetime === "undefined" ? new Date(Date.now()).toLocaleString() : datetime);
         this.likes = (typeof likes === "undefined" ? 0: likes);
     }
-
-    getText() {
-        return this.text;
+    getText () {
+        return this.bookname + ' ' + this.chapter + ': ' + this.verse + ' ' + this.text
     }
 
     getDateTime() {

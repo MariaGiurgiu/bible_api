@@ -23,7 +23,7 @@ export default class BaseComponent extends React.Component {
         let self = this;
         axios.get('http://localhost:3000/data')
             .then(function (resp) {
-                let v = new Verse(resp.data);
+                let v = new Verse(resp.data.text, undefined, undefined, undefined, resp.data.bookname, resp.data.chapter, resp.data.verse);
                 self.setState({verse: v});
             }).catch(function (err) {
                 console.log(err)

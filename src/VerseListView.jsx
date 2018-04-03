@@ -10,7 +10,7 @@ import Verse from "./verse";
 export default class VerseList extends React.Component {
     constructor(props) {
         super(props);
-        this.verseRepository = new VerseRepository()
+        this.verseRepository = new VerseRepository();
         this.state = {
             verses: []
         };
@@ -39,7 +39,7 @@ export default class VerseList extends React.Component {
             this.setState({
                 verses: this.state.verses.map(el => {
                     if (el.getId() === id) {
-                        return new Verse(el.text, el.id, el.datetime, likes)
+                        return new Verse(el.text, el.id, el.datetime, likes, el.bookname, el.chapter, el.verse)
                     }
                     return el
                 })
