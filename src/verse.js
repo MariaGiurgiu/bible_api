@@ -8,6 +8,9 @@ export default class Verse {
         this.datetime = (typeof datetime === "undefined" ? new Date(Date.now()).toLocaleString() : datetime);
         this.likes = (typeof likes === "undefined" ? 0: likes);
     }
+    getBookname() {
+        return this.bookname
+    }
     getText () {
         return this.bookname + ' ' + this.chapter + ': ' + this.verse + ' ' + this.text
     }
