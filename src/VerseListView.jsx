@@ -2,7 +2,7 @@ import React from "react";
 
 import LikeButton from "./LikeButton.jsx";
 import DeleteButton from "./DeleteButton.jsx";
-import AddButton from "./AddButton.jsx" ;
+import SortButton from "./SortButton.jsx" ;
 
 import VerseRepository from "./verseRepository.js" ;
 import Verse from "./verse";
@@ -14,6 +14,16 @@ export default class VerseList extends React.Component {
         this.state = {
             verses: []
         };
+    }
+    sort() {
+        this.verseRepository.findAll((result) => {
+            result.sort(
+                (a, b) => b.getBookname().localeCompare(a.getBookname())
+            );
+            this.setState({
+                verses: result
+            })
+        })
     }
 
     remove (id) {
@@ -58,6 +68,9 @@ export default class VerseList extends React.Component {
         return (
             <div className="container">
                 <h2>Previous verses </h2>
+                <div>
+                    <SortButton sort={this.sort.bind(this)}/>
+                </div>
                 <ul className="list-group">
                     {
                         this.state.verses.map((item, index) => {
